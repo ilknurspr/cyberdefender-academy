@@ -1,89 +1,59 @@
-# CyberDefender Academy - 90-Day Learning Journey
+# 🎯 CyberDefender Academy - Competitive Intelligence Lab Integration
 
-An interactive visualization of an AI-powered GTM sales enablement program designed for cybersecurity companies.
+## Quick Setup Guide
 
-🔗 **[View Live Demo](#)** *(Add your GitHub Pages link here after deployment)*
+### Step 1: Upload Simulation File
+1. Go to: https://github.com/ilknurspr/cyberdefender-academy
+2. Click "Add file" → "Upload files"
+3. Upload: `competitive-intelligence-simulation.html`
+4. Commit message: "Add interactive competitive intelligence simulation"
+5. Commit changes
 
----
+### Step 2: Update index.html
+1. In your GitHub repo, open `index.html`
+2. Click the "Edit" button (pencil icon)
+3. Find the Week 3-4 "Competitive Intelligence" section
+4. Find the ACTIVITIES list
+5. Locate the line: "AI competitive simulation"
+6. Replace it with the code from `INTEGRATION-INSTRUCTIONS.html`
+7. Add the CSS to your `<style>` section
+8. Commit changes
 
-## 📋 Project Overview
+### Step 3: Test
+1. Wait 1-2 minutes for GitHub Pages to update
+2. Visit: https://ilknurspr.github.io/cyberdefender-academy/
+3. Scroll to Week 3-4
+4. Click "Launch Interactive Lab →"
+5. Simulation should open in new tab
 
-**CyberDefender Academy** is a comprehensive 90-day onboarding program that reduces sales ramp time by 50% through:
-- Structured learning journeys for GTM roles (SDR, AE, SE)
-- AI-powered coaching and real-time feedback
-- Gamification with badges and leaderboards
-- Manager enablement toolkit
+## Files Included
 
----
+📁 `competitive-intelligence-simulation.html` - The interactive simulation (UPLOAD THIS)
+📁 `INTEGRATION-INSTRUCTIONS.html` - Detailed integration code (READ THIS)
+📁 `README.md` - This file
 
-## 🎯 Key Features
+## Result
 
-- **4-Phase Learning Journey**: From Security Foundation to Advanced Closing
-- **AI Integration**: 24/7 chatbot support, demo coaching, competitive simulations
-- **Gamification**: Achievement badges, progress tracking, team competitions
-- **Manager Track**: Parallel coaching program for front-line managers
-- **Measurable Results**: 50% ramp reduction, 18% win rate increase, 97% completion
+The Week 3-4 module will have a highlighted, interactive activity:
 
----
+```
+ACTIVITIES
+✓ Battle card training modules
+→ AI competitive simulation [Launch Interactive Lab →]  ⭐
+✓ Role-play with peers
+✓ Create your battle card
+```
 
-## 🛠️ Technologies Used
+## Support
 
-- HTML5
-- CSS3 (Custom animations, gradients, responsive design)
-- Google Fonts (Orbitron, IBM Plex Sans)
-- Pure CSS (No JavaScript frameworks)
-
----
-
-## 📸 Screenshots
-
-*Add screenshots here after deployment*
-
----
-
-## 🚀 Methodology
-
-This learning journey was designed using:
-- **ADDIE Framework**: Systematic instructional design approach
-- **Stakeholder Interviews**: 25+ interviews with sales leaders and reps
-- **Data Analysis**: Identified 16-week baseline ramp time and pain points
-- **AI Integration**: OpenAI API for chatbot, coaching feedback, and scenario simulation
-- **Gamification Theory**: Badge system, achievement unlocks, leaderboard competition
-
----
-
-## 📊 Results & Impact
-
-| Metric | Before | After | Improvement |
-|--------|--------|-------|-------------|
-| Ramp Time | 16 weeks | 8 weeks | **-50%** |
-| Win Rate | 28% | 33% | **+18%** |
-| Training Completion | 64% | 97% | **+52%** |
-| Quota Attainment | 65% of reps | 82% of reps | **+26%** |
+If you need help, the integration instructions file has:
+- Full HTML code
+- Complete CSS styling
+- Alternative simple version
+- Example structure
+- Troubleshooting tips
 
 ---
 
-## 👤 About the Designer
-
-**Ilknur Aspir** | Learning Architect & Sales Enablement Designer
-
-- 🎓 Harvard Graduate School of Education
-- 💼 Expertise: GTM enablement, AI-integrated learning, gamification
-- 🛠️ Tools: Articulate Storyline, Plecto, Figma, Python
-- 🌐 [Portfolio](#) | [LinkedIn](#)
-
----
-
-## 📄 License
-
-This is a portfolio project for demonstration purposes.
-
----
-
-## 🙏 Acknowledgments
-
-Designed as a portfolio piece demonstrating:
-- Strategic learning architecture
-- AI integration in corporate training
-- Gamification for sales enablement
-- Manager development programs
+**Created for CyberDefender Academy**
+Week 3-4: Competitive Intelligence Module
