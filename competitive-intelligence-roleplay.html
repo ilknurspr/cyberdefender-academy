@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Competitive Role-Play Lab - CyberDefender Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      text-align: center;
+      padding: 50px 30px;
+      margin-bottom: 40px;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+    
+    .header h1 {
+      font-size: 2.8rem;
+      color: #f1f5f9;
+      margin-bottom: 12px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    
+    .header .subtitle {
+      font-size: 1.15rem;
+      color: #94a3b8;
+      font-weight: 400;
+    }
+    
+    .week-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      padding: 10px 25px;
+      border-radius: 25px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    
+    .stat-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+      padding: 25px;
+      border-radius: 16px;
+      text-align: center;
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .stat-card:hover::before {
+      left: 100%;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(59, 130, 246, 0.3);
+      box-shadow: 0 12px 35px rgba(59, 130, 246, 0.15);
+    }
+    
+    .stat-icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #60a5fa;
+    }
+    
+    .stat-icon svg {
+      filter: drop-shadow(0 2px 8px rgba(96, 165, 250, 0.2));
+    }
+    
+    .stat-value {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #60a5fa;
+      margin-bottom: 8px;
+    }
+    
+    .stat-label {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+    
+    .stat-progress {
+      margin-top: 12px;
+    }
+    
+    .mini-progress-bar {
+      width: 100%;
+      height: 4px;
+      background: rgba(15, 23, 42, 0.8);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    
+    .mini-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+      width: 0%;
+      transition: width 0.5s ease;
+      box-shadow: 0 0 8px rgba(96, 165, 250, 0.6);
+    }
+    
+    .xp-bar {
+      width: 100%;
+      height: 18px;
+      background: rgba(15, 23, 42, 0.8);
+      border-radius: 9px;
+      overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+    
+    .xp-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 50%, #34d399 100%);
+      width: 0%;
+      transition: width 0.8s ease;
+      box-shadow: 0 0 15px rgba(96, 165, 250, 0.8);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .xp-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    
+    .achievement-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin: 25px 0;
+    }
+    
+    .achievement-card {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(30, 41, 59, 0.8) 100%);
+      padding: 20px;
+      border-radius: 14px;
+      text-align: center;
+      border: 2px solid rgba(59, 130, 246, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .achievement-card.locked {
+      opacity: 0.4;
+      filter: grayscale(0.8);
+      border-color: rgba(148, 163, 184, 0.2);
+    }
+    
+    .achievement-card.unlocked {
+      opacity: 1;
+      filter: grayscale(0);
+      border-color: #3b82f6;
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+      animation: unlockPulse 0.6s ease-out;
+    }
+    
+    @keyframes unlockPulse {
+      0% { transform: scale(0.9); opacity: 0; }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    
+    .achievement-icon {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      color: #60a5fa;
+    }
+    
+    .achievement-icon svg {
+      filter: drop-shadow(0 2px 8px rgba(96, 165, 250, 0.3));
+    }
+    
+    .achievement-card.locked .achievement-icon {
+      color: #475569;
+    }
+    
+    .achievement-card.unlocked .achievement-icon {
+      color: #60a5fa;
+      animation: iconGlow 0.6s ease-out;
+    }
+    
+    @keyframes iconGlow {
+      0%, 100% { filter: drop-shadow(0 2px 8px rgba(96, 165, 250, 0.3)); }
+      50% { filter: drop-shadow(0 4px 20px rgba(96, 165, 250, 0.8)); }
+    }
+    
+    .achievement-name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #f1f5f9;
+      margin-bottom: 6px;
+    }
+    
+    .achievement-desc {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      margin-bottom: 8px;
+    }
+    
+    .achievement-xp {
+      font-size: 0.9rem;
+      color: #34d399;
+      font-weight: 600;
+    }
+    
+    .xp-notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      padding: 16px 24px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+      z-index: 1000;
+      animation: slideInRight 0.5s ease-out, slideOutRight 0.5s ease-in 2.5s forwards;
+      font-weight: 600;
+      display: none;
+    }
+    
+    @keyframes slideInRight {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes slideOutRight {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+    }
+    
+    .level-up-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      animation: fadeIn 0.3s ease-in;
+    }
+    
+    .level-up-content {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(30, 41, 59, 0.95));
+      padding: 50px;
+      border-radius: 20px;
+      text-align: center;
+      border: 2px solid #3b82f6;
+      box-shadow: 0 20px 60px rgba(59, 130, 246, 0.4);
+      animation: scaleIn 0.5s ease-out;
+    }
+    
+    @keyframes scaleIn {
+      from {
+        transform: scale(0.7);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    
+    .level-up-content h2 {
+      font-size: 3rem;
+      color: #60a5fa;
+      margin-bottom: 20px;
+      text-shadow: 0 0 30px rgba(96, 165, 250, 0.6);
+    }
+    
+    .level-up-content p {
+      font-size: 1.3rem;
+      color: #cbd5e1;
+      margin-bottom: 30px;
+    }
+    
+    .combo-meter {
+      background: rgba(51, 65, 85, 0.3);
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin: 20px 0;
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .combo-label {
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+    
+    .combo-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #f59e0b;
+      text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+    }
+    
+    .module-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border-radius: 20px;
+      padding: 35px;
+      margin-bottom: 30px;
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .module-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6);
+    }
+    
+    .module-card:hover {
+      border-color: rgba(59, 130, 246, 0.3);
+      box-shadow: 0 12px 40px rgba(59, 130, 246, 0.12);
+    }
+    
+    .module-header {
+      margin-bottom: 25px;
+    }
+    
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+      margin-bottom: 12px;
+    }
+    
+    .module-card h2 {
+      font-size: 1.9rem;
+      color: #f1f5f9;
+      margin-bottom: 15px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    
+    .module-card h3 {
+      font-size: 1.35rem;
+      color: #cbd5e1;
+      margin: 25px 0 15px 0;
+      font-weight: 600;
+    }
+    
+    .objectives-list {
+      list-style: none;
+      padding: 0;
+      margin: 15px 0;
+    }
+    
+    .objectives-list li {
+      padding: 14px 18px;
+      margin-bottom: 10px;
+      background: rgba(51, 65, 85, 0.4);
+      border-left: 3px solid #60a5fa;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      color: #e2e8f0;
+    }
+    
+    .objectives-list li:hover {
+      background: rgba(59, 130, 246, 0.15);
+      transform: translateX(5px);
+      border-left-color: #3b82f6;
+    }
+    
+    .scenario-selector {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 25px 0;
+    }
+    
+    .scenario-btn {
+      background: linear-gradient(135deg, rgba(51, 65, 85, 0.6) 0%, rgba(30, 41, 59, 0.8) 100%);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      padding: 24px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: left;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+    
+    .scenario-completion-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    }
+    
+    .scenario-completion-badge::before {
+      content: '✓';
+    }
+    
+    .scenario-xp {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #34d399;
+      font-weight: 600;
+    }
+    
+    .scenario-btn:hover {
+      border-color: rgba(59, 130, 246, 0.4);
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(30, 41, 59, 0.9) 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+    }
+    
+    .scenario-btn.active {
+      border-color: #3b82f6;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.15) 100%);
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.25);
+    }
+    
+    .scenario-btn.completed {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(30, 41, 59, 0.8) 100%);
+    }
+    
+    .scenario-title {
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: #f1f5f9;
+      margin-bottom: 8px;
+    }
+    
+    .scenario-desc {
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+    
+    .scenario-detail {
+      background: rgba(51, 65, 85, 0.3);
+      padding: 30px;
+      border-radius: 16px;
+      margin: 25px 0;
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      display: none;
+    }
+    
+    .scenario-detail.active {
+      display: block;
+      animation: fadeIn 0.5s ease-in;
+    }
+    
+    .competitor-tag {
+      display: inline-block;
+      background: rgba(59, 130, 246, 0.15);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin: 5px 5px 5px 0;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #93c5fd;
+      font-weight: 500;
+    }
+    
+    .recording-section {
+      background: rgba(51, 65, 85, 0.3);
+      padding: 28px;
+      border-radius: 16px;
+      margin: 20px 0;
+      border: 1px solid rgba(148, 163, 184, 0.1);
+    }
+    
+    .controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    button {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      border: none;
+      padding: 16px 28px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+      text-transform: none;
+      letter-spacing: 0.3px;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.35);
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .record-btn {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    }
+    
+    .record-btn:hover {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    }
+    
+    .record-btn.recording {
+      animation: pulse 1.5s infinite;
+    }
+    
+    .play-btn {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+    
+    .play-btn:hover {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    }
+    
+    .download-btn {
+      background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    }
+    
+    .download-btn:hover {
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    }
+    
+    .timer {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #60a5fa;
+      text-align: center;
+      padding: 20px;
+      background: rgba(59, 130, 246, 0.08);
+      border-radius: 12px;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      border: 1px solid rgba(59, 130, 246, 0.15);
+    }
+    
+    textarea {
+      width: 100%;
+      padding: 16px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 10px;
+      color: #e2e8f0;
+      font-size: 0.95rem;
+      font-family: inherit;
+      resize: vertical;
+      transition: all 0.3s ease;
+      line-height: 1.6;
+    }
+    
+    textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      background: rgba(15, 23, 42, 0.8);
+    }
+    
+    input[type="file"] {
+      width: 100%;
+      padding: 16px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 2px dashed rgba(148, 163, 184, 0.3);
+      border-radius: 10px;
+      color: #cbd5e1;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    input[type="file"]:hover {
+      border-color: #3b82f6;
+      background: rgba(59, 130, 246, 0.05);
+    }
+    
+    .rubric-grid {
+      display: grid;
+      gap: 20px;
+      margin: 25px 0;
+    }
+    
+    .rubric-item {
+      background: rgba(51, 65, 85, 0.3);
+      padding: 22px;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      transition: all 0.3s ease;
+    }
+    
+    .rubric-item:hover {
+      border-color: rgba(59, 130, 246, 0.3);
+      background: rgba(51, 65, 85, 0.4);
+    }
+    
+    .rubric-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .rubric-label {
+      font-weight: 600;
+      color: #f1f5f9;
+      font-size: 1.05rem;
+    }
+    
+    .rubric-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #60a5fa;
+      min-width: 50px;
+      text-align: right;
+    }
+    
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(15, 23, 42, 0.8);
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(59, 130, 246, 0.4);
+      transition: transform 0.2s ease;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+    
+    input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 3px 8px rgba(59, 130, 246, 0.4);
+    }
+    
+    .total-score-panel {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(37, 99, 235, 0.08) 100%);
+      padding: 35px;
+      border-radius: 16px;
+      text-align: center;
+      margin: 25px 0;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+    }
+    
+    .total-score-value {
+      font-size: 4rem;
+      font-weight: 700;
+      color: #60a5fa;
+      text-shadow: 0 0 30px rgba(96, 165, 250, 0.3);
+    }
+    
+    .total-score-label {
+      font-size: 1.15rem;
+      color: #cbd5e1;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: rgba(15, 23, 42, 0.8);
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 15px 0;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 50%, #10b981 100%);
+      transition: width 0.5s ease;
+      width: 0%;
+      box-shadow: 0 0 15px rgba(96, 165, 250, 0.5);
+    }
+    
+    .success-message {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.1) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 18px 24px;
+      border-radius: 10px;
+      margin-top: 20px;
+      display: none;
+      text-align: center;
+      font-weight: 500;
+      color: #6ee7b7;
+      animation: slideIn 0.5s ease-out;
+    }
+    
+    .audio-player {
+      width: 100%;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+    
+    label {
+      display: block;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin: 20px 0 10px 0;
+      font-size: 1.05rem;
+    }
+    
+    .info-box {
+      background: rgba(59, 130, 246, 0.08);
+      border-left: 3px solid #3b82f6;
+      padding: 16px 22px;
+      border-radius: 8px;
+      margin: 20px 0;
+      border-top: 1px solid rgba(59, 130, 246, 0.1);
+      border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+    }
+    
+    .info-box strong {
+      color: #60a5fa;
+      font-weight: 600;
+    }
+    
+    .footer {
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 60px;
+      color: #64748b;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(148, 163, 184, 0.1);
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.8rem;
+      }
+      .controls-grid {
+        grid-template-columns: 1fr;
+      }
+      .total-score-value {
+        font-size: 3rem;
+      }
+      .scenario-selector {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <span class="week-badge">Week 3-4</span>
+    <h1>Competitive Intelligence Role-Play</h1>
+    <p class="subtitle">Threat Hunter Training - Master Competitive Positioning</p>
+    
+    <!-- Player Level & XP Bar -->
+    <div style="max-width: 600px; margin: 25px auto 0;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="background: linear-gradient(135deg, #3b82f6, #2563eb); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 700; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);" id="levelBadge">1</div>
+          <div>
+            <div style="font-size: 0.85rem; color: #94a3b8;">Level <span id="currentLevel">1</span> Threat Hunter</div>
+            <div style="font-size: 1.1rem; font-weight: 600; color: #60a5fa;"><span id="currentXP">0</span> / <span id="nextLevelXP">100</span> XP</div>
+          </div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 0.85rem; color: #94a3b8;">Total XP</div>
+          <div style="font-size: 1.3rem; font-weight: 700; color: #60a5fa;" id="totalXP">0</div>
+        </div>
+      </div>
+      <div class="xp-bar">
+        <div class="xp-fill" id="xpFill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Achievement Showcase -->
+  <div class="module-card" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(30, 41, 59, 0.9) 100%);">
+    <div class="module-header">
+      <span class="badge">Achievements Unlocked</span>
+      <h2>Your Trophy Case</h2>
+    </div>
+    
+    <div class="achievement-grid">
+      <div class="achievement-card locked" id="achievement-first-scenario">
+        <div class="achievement-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+        </div>
+        <div class="achievement-name">First Blood</div>
+        <div class="achievement-desc">Complete your first scenario</div>
+        <div class="achievement-xp">+50 XP</div>
+      </div>
+      
+      <div class="achievement-card locked" id="achievement-perfect-score">
+        <div class="achievement-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </div>
+        <div class="achievement-name">Perfect Score</div>
+        <div class="achievement-desc">Get 5/5 on all categories</div>
+        <div class="achievement-xp">+150 XP</div>
+      </div>
+      
+      <div class="achievement-card locked" id="achievement-all-scenarios">
+        <div class="achievement-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+            <path d="M4 22h16"></path>
+            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+          </svg>
+        </div>
+        <div class="achievement-name">Battle Master</div>
+        <div class="achievement-desc">Complete all 4 scenarios</div>
+        <div class="achievement-xp">+200 XP</div>
+      </div>
+      
+      <div class="achievement-card locked" id="achievement-speed-demon">
+        <div class="achievement-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <div class="achievement-name">Speed Demon</div>
+        <div class="achievement-desc">Complete 3 scenarios in one day</div>
+        <div class="achievement-xp">+100 XP</div>
+      </div>
+      
+      <div class="achievement-card locked" id="achievement-consistent">
+        <div class="achievement-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 20V10"></path>
+            <path d="M12 20V4"></path>
+            <path d="M6 20v-6"></path>
+          </svg>
+        </div>
+        <div class="achievement-name">Consistency King</div>
+        <div class="achievement-desc">Score 4+ on 3 scenarios</div>
+        <div class="achievement-xp">+120 XP</div>
+      </div>
+      
+      <div class="achievement-card locked" id="achievement-feedback-hero">
+        <div class="achievement-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </div>
+        <div class="achievement-name">Feedback Hero</div>
+        <div class="achievement-desc">Give feedback on 5 peers</div>
+        <div class="achievement-xp">+80 XP</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+      </div>
+      <div class="stat-value" id="practiceTime">0</div>
+      <div class="stat-label">Minutes Practiced</div>
+      <div class="stat-progress">
+        <div class="mini-progress-bar">
+          <div class="mini-progress-fill" id="timeProgress"></div>
+        </div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <div class="stat-value"><span id="scenarioCount">0</span>/4</div>
+      <div class="stat-label">Scenarios Completed</div>
+      <div class="stat-progress">
+        <div class="mini-progress-bar">
+          <div class="mini-progress-fill" id="scenarioProgress"></div>
+        </div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 20V10"></path>
+          <path d="M12 20V4"></path>
+          <path d="M6 20v-6"></path>
+        </svg>
+      </div>
+      <div class="stat-value" id="avgScore">0.0</div>
+      <div class="stat-label">Average Performance</div>
+      <div class="stat-progress">
+        <div class="mini-progress-bar">
+          <div class="mini-progress-fill" id="scoreProgress"></div>
+        </div>
+      </div>
+    </div>
+    <div class="stat-card" id="badgeCard">
+      <div class="stat-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+      </div>
+      <div class="stat-value" id="badgeStatus">Locked</div>
+      <div class="stat-label">Threat Hunter Badge</div>
+      <div class="stat-progress">
+        <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 8px;" id="badgeRequirement">Complete 3 scenarios with 4+ avg</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Learning Objectives -->
+  <div class="module-card">
+    <div class="module-header">
+      <span class="badge">Learning Objectives</span>
+      <h2>Competitive Intelligence Mastery</h2>
+    </div>
+    
+    <ul class="objectives-list">
+      <li>Master competitive positioning against top competitors</li>
+      <li>Handle the top 10 objections with confidence</li>
+      <li>Articulate unique value propositions clearly</li>
+      <li>Demonstrate battle card knowledge in live scenarios</li>
+    </ul>
+  </div>
+
+  <!-- Scenario Selection -->
+  <div class="module-card">
+    <div class="module-header">
+      <span class="badge">Select Your Battle</span>
+      <h2>Competitive Scenarios</h2>
+    </div>
+    
+    <div class="combo-meter">
+      <div>
+        <div class="combo-label">Current Streak</div>
+        <div class="combo-value"><span id="streakCount">0</span> <span style="font-size: 1rem; color: #94a3b8;">days</span></div>
+      </div>
+      <div style="text-align: right;">
+        <div class="combo-label">Best Streak</div>
+        <div class="combo-value"><span id="bestStreak">0</span> <span style="font-size: 1rem; color: #94a3b8;">days</span></div>
+      </div>
+    </div>
+    
+    <p style="margin-bottom: 20px; color: #cbd5e1;">
+      Choose a competitive scenario to practice. Each scenario presents a different competitor and objection pattern.
+    </p>
+    
+    <div class="scenario-selector">
+      <div class="scenario-btn" data-scenario="hashicorp" data-completed="false">
+        <div class="scenario-completion-badge" style="display: none;"></div>
+        <div class="scenario-title">vs. HashiCorp Vault</div>
+        <div class="scenario-desc">Price & complexity objections</div>
+        <div class="scenario-xp">+25 XP</div>
+      </div>
+      <div class="scenario-btn" data-scenario="beyondtrust" data-completed="false">
+        <div class="scenario-completion-badge" style="display: none;"></div>
+        <div class="scenario-title">vs. BeyondTrust</div>
+        <div class="scenario-desc">Feature parity concerns</div>
+        <div class="scenario-xp">+25 XP</div>
+      </div>
+      <div class="scenario-btn" data-scenario="delinea" data-completed="false">
+        <div class="scenario-completion-badge" style="display: none;"></div>
+        <div class="scenario-title">vs. Delinea (Thycotic)</div>
+        <div class="scenario-desc">Migration & learning curve</div>
+        <div class="scenario-xp">+25 XP</div>
+      </div>
+      <div class="scenario-btn" data-scenario="okta" data-completed="false">
+        <div class="scenario-completion-badge" style="display: none;"></div>
+        <div class="scenario-title">vs. Okta PAM</div>
+        <div class="scenario-desc">Cloud-first positioning</div>
+        <div class="scenario-xp">+25 XP</div>
+      </div>
+    </div>
+    
+    <!-- Scenario Details -->
+    <div id="scenario-hashicorp" class="scenario-detail">
+      <h3>Battle: CyberArk vs. HashiCorp Vault</h3>
+      <div style="margin: 15px 0;">
+        <span class="competitor-tag">HashiCorp Vault</span>
+        <span class="competitor-tag">Price Sensitive</span>
+        <span class="competitor-tag">DevOps Focused</span>
+      </div>
+      
+      <div class="info-box">
+        <strong>Prospect Context:</strong> Mid-market fintech company evaluating PAM solutions. 
+        They're drawn to HashiCorp Vault's lower price point and familiarity with their DevOps tools.
+      </div>
+      
+      <h3>Key Objections to Address:</h3>
+      <ul class="objectives-list">
+        <li>"HashiCorp Vault is significantly cheaper than CyberArk"</li>
+        <li>"We already use HashiCorp tools in our infrastructure"</li>
+        <li>"Vault is more developer-friendly and easier to integrate"</li>
+        <li>"CyberArk seems overly complex for our needs"</li>
+      </ul>
+      
+      <h3>Your Battle Card Talking Points:</h3>
+      <ul class="objectives-list">
+        <li>Enterprise-grade security vs. secrets management tool</li>
+        <li>Compliance & audit capabilities (SOX, PCI-DSS)</li>
+        <li>24/7 enterprise support & proven at scale</li>
+        <li>Privileged session management (not just secrets)</li>
+        <li>TCO analysis: hidden costs of DIY security</li>
+      </ul>
+    </div>
+    
+    <div id="scenario-beyondtrust" class="scenario-detail">
+      <h3>Battle: CyberArk vs. BeyondTrust</h3>
+      <div style="margin: 15px 0;">
+        <span class="competitor-tag">BeyondTrust</span>
+        <span class="competitor-tag">Feature Comparison</span>
+        <span class="competitor-tag">Incumbent</span>
+      </div>
+      
+      <div class="info-box">
+        <strong>Prospect Context:</strong> Enterprise healthcare organization currently using BeyondTrust. 
+        Concerned about platform limitations but worried about switching costs.
+      </div>
+      
+      <h3>Key Objections to Address:</h3>
+      <ul class="objectives-list">
+        <li>"BeyondTrust already covers our basic PAM needs"</li>
+        <li>"The switching cost seems too high right now"</li>
+        <li>"We're familiar with BeyondTrust's interface and workflows"</li>
+        <li>"BeyondTrust offers similar features at comparable pricing"</li>
+      </ul>
+      
+      <h3>Your Battle Card Talking Points:</h3>
+      <ul class="objectives-list">
+        <li>Superior threat detection & analytics capabilities</li>
+        <li>Cloud transformation readiness (hybrid/multi-cloud)</li>
+        <li>Best-in-class credential rotation automation</li>
+        <li>Migration support & proven methodology</li>
+        <li>Gartner Magic Quadrant leadership position</li>
+      </ul>
+    </div>
+    
+    <div id="scenario-delinea" class="scenario-detail">
+      <h3>Battle: CyberArk vs. Delinea (Thycotic)</h3>
+      <div style="margin: 15px 0;">
+        <span class="competitor-tag">Delinea</span>
+        <span class="competitor-tag">Ease of Use</span>
+        <span class="competitor-tag">Quick Deploy</span>
+      </div>
+      
+      <div class="info-box">
+        <strong>Prospect Context:</strong> Manufacturing company needs quick PAM deployment. 
+        Attracted to Delinea's reputation for ease of use and faster implementation.
+      </div>
+      
+      <h3>Key Objections to Address:</h3>
+      <ul class="objectives-list">
+        <li>"Delinea has a reputation for being easier to deploy and use"</li>
+        <li>"We need something up and running quickly, not a 6-month project"</li>
+        <li>"CyberArk requires specialized expertise we don't have"</li>
+        <li>"The learning curve for CyberArk seems steep for our team"</li>
+      </ul>
+      
+      <h3>Your Battle Card Talking Points:</h3>
+      <ul class="objectives-list">
+        <li>Modular deployment options (start small, scale up)</li>
+        <li>SaaS offering for rapid time-to-value</li>
+        <li>Comprehensive training & enablement programs</li>
+        <li>Professional services & implementation support</li>
+        <li>Future-proof architecture for long-term growth</li>
+      </ul>
+    </div>
+    
+    <div id="scenario-okta" class="scenario-detail">
+      <h3>Battle: CyberArk vs. Okta PAM</h3>
+      <div style="margin: 15px 0;">
+        <span class="competitor-tag">Okta</span>
+        <span class="competitor-tag">Cloud Native</span>
+        <span class="competitor-tag">Identity Platform</span>
+      </div>
+      
+      <div class="info-box">
+        <strong>Prospect Context:</strong> SaaS company already using Okta for identity management. 
+        Considering expanding Okta's capabilities instead of adding CyberArk.
+      </div>
+      
+      <h3>Key Objections to Address:</h3>
+      <ul class="objectives-list">
+        <li>"We already have Okta for identity - why add another vendor?"</li>
+        <li>"Okta's PAM integrates seamlessly with what we already use"</li>
+        <li>"Managing multiple vendors adds complexity and cost"</li>
+        <li>"Okta is more aligned with our cloud-first strategy"</li>
+      </ul>
+      
+      <h3>Your Battle Card Talking Points:</h3>
+      <ul class="objectives-list">
+        <li>PAM depth vs. identity breadth - specialized expertise</li>
+        <li>Advanced threat protection & session monitoring</li>
+        <li>Regulatory compliance certifications (FedRAMP, etc.)</li>
+        <li>Integration capabilities with Okta (best-of-breed approach)</li>
+        <li>Proven track record in securing critical infrastructure</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Role-Play Recording -->
+  <div class="module-card">
+    <div class="module-header">
+      <span class="badge">Record Your Response</span>
+      <h2>Practice Your Competitive Positioning</h2>
+    </div>
+    
+    <div class="info-box">
+      <strong>Instructions:</strong> Select a scenario above, then record your response addressing the objections. 
+      Focus on competitive differentiation, value articulation, and handling concerns confidently.
+    </div>
+    
+    <div class="recording-section">
+      <h3>Audio Recording (Recommended: 3-5 minutes)</h3>
+      
+      <div class="controls-grid">
+        <button id="recordBtn" class="record-btn">Start Recording</button>
+        <button id="playBtn" class="play-btn" disabled>Play Recording</button>
+        <button id="downloadBtn" class="download-btn" disabled>Download</button>
+      </div>
+      
+      <div id="timer" class="timer" style="display: none;">00:00</div>
+      
+      <audio id="audioPlayer" class="audio-player" controls style="display: none;"></audio>
+    </div>
+    
+    <label>Or Upload Video/Audio File</label>
+    <input type="file" id="fileUpload" accept="video/*,audio/*">
+    
+    <label>Or Write Your Response</label>
+    <textarea id="responseText" rows="8" placeholder="Type your competitive response here... Include how you would address each objection, your differentiators, and how you'd position CyberArk's unique value."></textarea>
+    
+    <button id="submitResponse" style="width: 100%; margin-top: 25px; padding: 18px;">Submit Response for Peer Review</button>
+    <div id="submitSuccess" class="success-message">
+      Response submitted successfully! Your competitive positioning is ready for peer evaluation.
+    </div>
+  </div>
+
+  <!-- Peer Feedback -->
+  <div class="module-card">
+    <div class="module-header">
+      <span class="badge">Peer Evaluation</span>
+      <h2>Competitive Response Assessment</h2>
+    </div>
+    
+    <div class="total-score-panel">
+      <div class="total-score-value" id="totalScore">0.0</div>
+      <div class="total-score-label">Overall Performance / 5.0</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+    
+    <div class="rubric-grid">
+      <div class="rubric-item">
+        <div class="rubric-header">
+          <span class="rubric-label">Competitive Positioning</span>
+          <span class="rubric-value" id="positioning-value">0</span>
+        </div>
+        <input type="range" id="positioning" min="0" max="5" value="0" step="1">
+        <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 8px;">
+          How effectively did they differentiate CyberArk from the competitor?
+        </p>
+      </div>
+      
+      <div class="rubric-item">
+        <div class="rubric-header">
+          <span class="rubric-label">Objection Handling</span>
+          <span class="rubric-value" id="objection-value">0</span>
+        </div>
+        <input type="range" id="objection" min="0" max="5" value="0" step="1">
+        <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 8px;">
+          How well did they address and overcome stated objections?
+        </p>
+      </div>
+      
+      <div class="rubric-item">
+        <div class="rubric-header">
+          <span class="rubric-label">Value Articulation</span>
+          <span class="rubric-value" id="value-value">0</span>
+        </div>
+        <input type="range" id="value" min="0" max="5" value="0" step="1">
+        <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 8px;">
+          How clearly did they communicate CyberArk's unique value proposition?
+        </p>
+      </div>
+      
+      <div class="rubric-item">
+        <div class="rubric-header">
+          <span class="rubric-label">Battle Card Knowledge</span>
+          <span class="rubric-value" id="knowledge-value">0</span>
+        </div>
+        <input type="range" id="knowledge" min="0" max="5" value="0" step="1">
+        <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 8px;">
+          Did they demonstrate strong knowledge of competitive talking points?
+        </p>
+      </div>
+      
+      <div class="rubric-item">
+        <div class="rubric-header">
+          <span class="rubric-label">Confidence & Delivery</span>
+          <span class="rubric-value" id="delivery-value">0</span>
+        </div>
+        <input type="range" id="delivery" min="0" max="5" value="0" step="1">
+        <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 8px;">
+          How confident and professional was their overall delivery?
+        </p>
+      </div>
+    </div>
+    
+    <label>Competitive Strengths</label>
+    <textarea id="strengths" rows="3" placeholder="What competitive positioning tactics worked well? Which differentiators were most compelling?"></textarea>
+    
+    <label>Areas for Improvement</label>
+    <textarea id="improvements" rows="3" placeholder="Which objections could have been handled better? What additional battle card points should be emphasized?"></textarea>
+    
+    <button id="submitFeedback" style="width: 100%; margin-top: 25px; padding: 18px;">Submit Peer Feedback</button>
+    <div id="feedbackSuccess" class="success-message">
+      Feedback submitted! You're helping build stronger competitive skills across the team!
+    </div>
+  </div>
+
+  <!-- Self-Reflection -->
+  <div class="module-card">
+    <div class="module-header">
+      <span class="badge">Self-Reflection</span>
+      <h2>Competitive Intelligence Growth</h2>
+    </div>
+    
+    <label>What did you learn about competitive positioning?</label>
+    <textarea id="learning" rows="3" placeholder="What insights did you gain about this competitor? Which talking points resonated most?"></textarea>
+    
+    <label>Which objection was hardest to address and why?</label>
+    <textarea id="challenge" rows="3" placeholder="Reflect on the most challenging objection you faced..."></textarea>
+    
+    <label>How will you improve your competitive skills?</label>
+    <textarea id="improvement" rows="3" placeholder="What specific actions will you take to strengthen your battle card knowledge and competitive confidence?"></textarea>
+    
+    <button id="submitReflection" style="width: 100%; margin-top: 25px; padding: 18px;">Save Reflection</button>
+    <div id="reflectionSuccess" class="success-message">
+      Reflection saved! Keep developing your competitive intelligence mastery!
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p><strong>CyberDefender Academy</strong> - Competitive Intelligence Lab</p>
+    <p>Week 3-4: Competitive Intelligence | "Threat Hunter" Track</p>
+  </div>
+</div>
+
+<!-- XP Notification -->
+<div class="xp-notification" id="xpNotification">
+  +<span id="xpAmount">0</span> XP Earned!
+</div>
+
+<!-- Level Up Modal -->
+<div class="level-up-modal" id="levelUpModal">
+  <div class="level-up-content">
+    <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: linear-gradient(135deg, #3b82f6, #2563eb); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5);">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+      </svg>
+    </div>
+    <h2>LEVEL UP!</h2>
+    <p>You've reached <strong>Level <span id="newLevel">2</span></strong></p>
+    <p style="font-size: 1rem; color: #94a3b8;">Keep up the great work, Threat Hunter!</p>
+    <button onclick="closeLevelUpModal()" style="margin-top: 20px;">Continue Training</button>
+  </div>
+</div>
+
+<script>
+  // Gamification System
+  let playerData = {
+    level: 1,
+    currentXP: 0,
+    totalXP: 0,
+    nextLevelXP: 100,
+    achievements: {},
+    streak: 0,
+    bestStreak: 0,
+    completedScenarios: [],
+    feedbackGiven: 0,
+    scenariosToday: 0,
+    lastPlayDate: null
+  };
+
+  // XP Rewards
+  const XP_REWARDS = {
+    scenarioComplete: 25,
+    perfectScore: 150,
+    goodScore: 50, // 4+ average
+    feedbackGiven: 15,
+    reflectionComplete: 10
+  };
+
+  // Achievement definitions
+  const ACHIEVEMENTS = {
+    'first-scenario': { xp: 50, check: () => playerData.completedScenarios.length >= 1 },
+    'perfect-score': { xp: 150, check: () => false }, // Checked separately
+    'all-scenarios': { xp: 200, check: () => playerData.completedScenarios.length >= 4 },
+    'speed-demon': { xp: 100, check: () => playerData.scenariosToday >= 3 },
+    'consistent': { xp: 120, check: () => false }, // Checked separately
+    'feedback-hero': { xp: 80, check: () => playerData.feedbackGiven >= 5 }
+  };
+
+  function awardXP(amount, reason) {
+    playerData.currentXP += amount;
+    playerData.totalXP += amount;
+    
+    // Show XP notification
+    showXPNotification(amount);
+    
+    // Check for level up
+    while (playerData.currentXP >= playerData.nextLevelXP) {
+      levelUp();
+    }
+    
+    updatePlayerUI();
+  }
+
+  function showXPNotification(amount) {
+    const notification = document.getElementById('xpNotification');
+    document.getElementById('xpAmount').textContent = amount;
+    notification.style.display = 'block';
+    
+    setTimeout(() => {
+      notification.style.display = 'none';
+    }, 3000);
+  }
+
+  function levelUp() {
+    playerData.currentXP -= playerData.nextLevelXP;
+    playerData.level++;
+    playerData.nextLevelXP = Math.floor(playerData.nextLevelXP * 1.5);
+    
+    showLevelUpModal();
+  }
+
+  function showLevelUpModal() {
+    const modal = document.getElementById('levelUpModal');
+    document.getElementById('newLevel').textContent = playerData.level;
+    modal.style.display = 'flex';
+  }
+
+  function closeLevelUpModal() {
+    document.getElementById('levelUpModal').style.display = 'none';
+  }
+
+  function updatePlayerUI() {
+    // Update level display
+    document.getElementById('levelBadge').textContent = playerData.level;
+    document.getElementById('currentLevel').textContent = playerData.level;
+    document.getElementById('currentXP').textContent = playerData.currentXP;
+    document.getElementById('nextLevelXP').textContent = playerData.nextLevelXP;
+    document.getElementById('totalXP').textContent = playerData.totalXP;
+    
+    // Update XP bar
+    const xpPercent = (playerData.currentXP / playerData.nextLevelXP) * 100;
+    document.getElementById('xpFill').style.width = xpPercent + '%';
+    
+    // Update streaks
+    document.getElementById('streakCount').textContent = playerData.streak;
+    document.getElementById('bestStreak').textContent = playerData.bestStreak;
+  }
+
+  function unlockAchievement(achievementId) {
+    if (playerData.achievements[achievementId]) return; // Already unlocked
+    
+    playerData.achievements[achievementId] = true;
+    const card = document.getElementById(`achievement-${achievementId}`);
+    card.classList.remove('locked');
+    card.classList.add('unlocked');
+    
+    const achievement = ACHIEVEMENTS[achievementId];
+    if (achievement) {
+      awardXP(achievement.xp, `Achievement: ${achievementId}`);
+    }
+  }
+
+  function checkAchievements() {
+    for (const [id, achievement] of Object.entries(ACHIEVEMENTS)) {
+      if (!playerData.achievements[id] && achievement.check()) {
+        unlockAchievement(id);
+      }
+    }
+  }
+
+  function updateStreak(scoreAverage) {
+    if (scoreAverage >= 4.0) {
+      playerData.streak++;
+      if (playerData.streak > playerData.bestStreak) {
+        playerData.bestStreak = playerData.streak;
+      }
+    } else {
+      playerData.streak = 0;
+    }
+    updatePlayerUI();
+  }
+
+  function updateMiniProgress() {
+    // Time progress (goal: 30 minutes)
+    const timePercent = Math.min((totalPracticeTime / 30) * 100, 100);
+    document.getElementById('timeProgress').style.width = timePercent + '%';
+    
+    // Scenario progress
+    const scenarioPercent = (scenariosCompleted / 4) * 100;
+    document.getElementById('scenarioProgress').style.width = scenarioPercent + '%';
+    
+    // Score progress (goal: 5.0)
+    if (scoreCount > 0) {
+      const avgScore = totalScore / scoreCount;
+      const scorePercent = (avgScore / 5) * 100;
+      document.getElementById('scoreProgress').style.width = scorePercent + '%';
+    }
+  }
+
+  // Scenario Selection
+  const scenarioBtns = document.querySelectorAll('.scenario-btn');
+  const scenarioDetails = document.querySelectorAll('.scenario-detail');
+  let selectedScenario = null;
+  
+  scenarioBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const scenario = btn.dataset.scenario;
+      
+      // Update active states
+      scenarioBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // Show scenario detail
+      scenarioDetails.forEach(detail => detail.classList.remove('active'));
+      document.getElementById(`scenario-${scenario}`).classList.add('active');
+      
+      selectedScenario = scenario;
+    });
+  });
+
+  // Audio Recording System
+  let mediaRecorder;
+  let audioChunks = [];
+  let recordingInterval;
+  let seconds = 0;
+  let recordedBlob = null;
+  let totalPracticeTime = 0;
+  let scenariosCompleted = 0;
+  let totalScore = 0;
+  let scoreCount = 0;
+
+  const recordBtn = document.getElementById('recordBtn');
+  const playBtn = document.getElementById('playBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const timer = document.getElementById('timer');
+  const audioPlayer = document.getElementById('audioPlayer');
+
+  recordBtn.addEventListener('click', async () => {
+    if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+      if (!selectedScenario) {
+        alert('Please select a competitive scenario first before recording.');
+        return;
+      }
+      
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
+        
+        mediaRecorder.ondataavailable = (event) => {
+          audioChunks.push(event.data);
+        };
+        
+        mediaRecorder.onstop = () => {
+          recordedBlob = new Blob(audioChunks, { type: 'audio/wav' });
+          const audioUrl = URL.createObjectURL(recordedBlob);
+          audioPlayer.src = audioUrl;
+          audioPlayer.style.display = 'block';
+          playBtn.disabled = false;
+          downloadBtn.disabled = false;
+          
+          totalPracticeTime += Math.floor(seconds / 60);
+          updateStats();
+          updateMiniProgress();
+        };
+        
+        mediaRecorder.start();
+        recordBtn.textContent = 'Stop Recording';
+        recordBtn.classList.add('recording');
+        timer.style.display = 'block';
+        seconds = 0;
+        
+        recordingInterval = setInterval(() => {
+          seconds++;
+          const mins = Math.floor(seconds / 60);
+          const secs = seconds % 60;
+          timer.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }, 1000);
+        
+      } catch (err) {
+        alert('Microphone access denied. Please allow microphone access to record.');
+      }
+    } else {
+      mediaRecorder.stop();
+      mediaRecorder.stream.getTracks().forEach(track => track.stop());
+      recordBtn.textContent = 'Start Recording';
+      recordBtn.classList.remove('recording');
+      clearInterval(recordingInterval);
+    }
+  });
+
+  playBtn.addEventListener('click', () => {
+    audioPlayer.play();
+  });
+
+  downloadBtn.addEventListener('click', () => {
+    if (recordedBlob) {
+      const url = URL.createObjectURL(recordedBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `competitive-response-${selectedScenario}-${Date.now()}.wav`;
+      a.click();
+    }
+  });
+
+  // Rubric Scoring System
+  const ranges = ['positioning', 'objection', 'value', 'knowledge', 'delivery'];
+  let scores = {};
+  
+  ranges.forEach(id => {
+    const slider = document.getElementById(id);
+    const valueDisplay = document.getElementById(`${id}-value`);
+    scores[id] = 0;
+    
+    slider.addEventListener('input', (e) => {
+      scores[id] = parseInt(e.target.value);
+      valueDisplay.textContent = e.target.value;
+      updateTotalScore();
+    });
+  });
+
+  function updateTotalScore() {
+    let sum = 0;
+    ranges.forEach(id => {
+      sum += scores[id];
+    });
+    const average = sum / 5;
+    document.getElementById('totalScore').textContent = average.toFixed(1);
+    
+    const percentage = (sum / 25) * 100;
+    document.getElementById('progressFill').style.width = percentage + '%';
+  }
+
+  function updateStats() {
+    document.getElementById('practiceTime').textContent = totalPracticeTime;
+    document.getElementById('scenarioCount').textContent = scenariosCompleted;
+    
+    if (scoreCount > 0) {
+      const avg = (totalScore / scoreCount).toFixed(1);
+      document.getElementById('avgScore').textContent = avg;
+      
+      if (scenariosCompleted >= 3 && avg >= 4.0) {
+        document.getElementById('badgeStatus').textContent = 'Unlocked';
+        document.getElementById('badgeStatus').style.color = '#34d399';
+        document.getElementById('badgeCard').style.borderColor = 'rgba(16, 185, 129, 0.5)';
+        document.getElementById('badgeRequirement').textContent = 'Achievement Complete';
+      }
+    }
+  }
+
+  // Submit Handlers
+  document.getElementById('submitResponse').addEventListener('click', () => {
+    if (!selectedScenario) {
+      alert('Please select a competitive scenario first.');
+      return;
+    }
+    
+    const text = document.getElementById('responseText').value;
+    const file = document.getElementById('fileUpload').files[0];
+    
+    if (text || file || recordedBlob) {
+      const success = document.getElementById('submitSuccess');
+      success.style.display = 'block';
+      setTimeout(() => { success.style.display = 'none'; }, 4000);
+      
+      // Mark scenario as completed
+      if (!playerData.completedScenarios.includes(selectedScenario)) {
+        playerData.completedScenarios.push(selectedScenario);
+        scenariosCompleted++;
+        playerData.scenariosToday++;
+        
+        // Visual feedback
+        const btn = document.querySelector(`[data-scenario="${selectedScenario}"]`);
+        btn.classList.add('completed');
+        btn.querySelector('.scenario-completion-badge').style.display = 'flex';
+        
+        // Award XP
+        awardXP(XP_REWARDS.scenarioComplete, 'Scenario Complete');
+        
+        // Check achievements
+        checkAchievements();
+      }
+      
+      updateStats();
+      updateMiniProgress();
+    } else {
+      alert('Please record, upload, or write your competitive response before submitting.');
+    }
+  });
+
+  document.getElementById('submitFeedback').addEventListener('click', () => {
+    const strengths = document.getElementById('strengths').value;
+    const improvements = document.getElementById('improvements').value;
+    
+    let sum = 0;
+    ranges.forEach(id => sum += scores[id]);
+    
+    if (strengths && improvements && sum > 0) {
+      const success = document.getElementById('feedbackSuccess');
+      success.style.display = 'block';
+      setTimeout(() => { success.style.display = 'none'; }, 4000);
+      
+      const average = sum / 5;
+      totalScore += average;
+      scoreCount++;
+      
+      // Award XP for feedback
+      playerData.feedbackGiven++;
+      awardXP(XP_REWARDS.feedbackGiven, 'Peer Feedback Given');
+      
+      // Award bonus for good score
+      if (average >= 4.0) {
+        awardXP(XP_REWARDS.goodScore, 'Excellent Performance');
+      }
+      
+      // Check for perfect score
+      if (average === 5.0) {
+        unlockAchievement('perfect-score');
+      }
+      
+      // Update streak
+      updateStreak(average);
+      
+      // Check achievements
+      checkAchievements();
+      
+      updateStats();
+      updateMiniProgress();
+    } else {
+      alert('Please complete the rubric scores and both feedback fields before submitting.');
+    }
+  });
+
+  document.getElementById('submitReflection').addEventListener('click', () => {
+    const learning = document.getElementById('learning').value;
+    const challenge = document.getElementById('challenge').value;
+    const improvement = document.getElementById('improvement').value;
+    
+    if (learning && challenge && improvement) {
+      const success = document.getElementById('reflectionSuccess');
+      success.style.display = 'block';
+      setTimeout(() => { success.style.display = 'none'; }, 4000);
+      
+      awardXP(XP_REWARDS.reflectionComplete, 'Reflection Complete');
+    } else {
+      alert('Please complete all reflection fields before submitting.');
+    }
+  });
+
+  // Initialize
+  updatePlayerUI();
+  updateStats();
+  updateMiniProgress();
+</script>
+</body>
+</html>
