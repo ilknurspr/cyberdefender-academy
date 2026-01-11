@@ -558,6 +558,63 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+        /* Interactive Activity Styling */
+.activity-interactive {
+    background: rgba(139, 92, 246, 0.08);
+    border-left: 3px solid #8B5CF6;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+}
+
+.activity-interactive:hover {
+    background: rgba(139, 92, 246, 0.12);
+    transform: translateX(4px);
+}
+
+.activity-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 12px;
+}
+
+.activity-text {
+    flex: 1;
+}
+
+.simulation-launch-btn {
+    padding: 8px 18px;
+    background: linear-gradient(135deg, #00D9FF, #8B5CF6);
+    border-radius: 6px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.85em;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
+}
+
+.simulation-launch-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4);
+}
+
+@media (max-width: 768px) {
+    .activity-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .simulation-launch-btn {
+        width: 100%;
+        text-align: center;
+        margin-top: 8px;
+    }
+}
     </style>
 </head>
 <body>
@@ -681,10 +738,17 @@
                                     <span class="activity-icon">📊</span>
                                     <span>Battle card training modules</span>
                                 </div>
-                                <div class="activity-item">
-                                    <span class="activity-icon">🤖</span>
-                                    <span>AI competitive simulation</span>
-                                </div>
+                                <div class="activity-item activity-interactive">
+    <span class="activity-icon">💻</span>
+    <div class="activity-content">
+        <span class="activity-text">AI competitive simulation</span>
+        <a href="competitive-intelligence-simulation.html" 
+           class="simulation-launch-btn" 
+           target="_blank">
+            Launch Interactive Lab →
+        </a>
+    </div>
+</div>
                                 <div class="activity-item">
                                     <span class="activity-icon">🎭</span>
                                     <span>Role-play with peers</span>
