@@ -29,10 +29,26 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(123, 47, 247, 0.06) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(123, 47, 247, 0.12) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.08) 1.5px, transparent 1.5px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.08) 1.5px, transparent 1.5px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.6;
         }
 
         /* Header */
@@ -42,18 +58,6 @@
             text-align: center;
             position: relative;
             z-index: 1;
-        }
-
-        .shield-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 20px #00d4ff);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.9; }
         }
 
         h1 {
@@ -75,6 +79,181 @@
             font-weight: 400;
             max-width: 700px;
             margin: 0 auto;
+        }
+
+        /* Hero Features Grid */
+        .hero-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 48px auto 0;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-feature {
+            background: rgba(26, 31, 58, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 16px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-feature:hover {
+            transform: translateY(-4px);
+            border-color: #00d4ff;
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .hero-feature-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(123, 47, 247, 0.15));
+            border-radius: 16px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .hero-feature-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: #00d4ff;
+            fill: none;
+            stroke-width: 2;
+            filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.5));
+        }
+
+        .hero-feature-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #00d4ff;
+            margin-bottom: 8px;
+        }
+
+        .hero-feature-desc {
+            font-size: 14px;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        /* Journey Timeline Visual */
+        .journey-timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 60px auto 40px;
+            padding: 0 24px;
+            z-index: 1;
+        }
+
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .timeline-title {
+            font-size: clamp(24px, 3vw, 32px);
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .timeline-subtitle {
+            font-size: 16px;
+            color: #a8b2d1;
+        }
+
+        .timeline-visual {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .timeline-phase {
+            background: rgba(26, 31, 58, 0.6);
+            border: 2px solid rgba(100, 116, 139, 0.3);
+            border-radius: 12px;
+            padding: 24px 16px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-phase::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -16px;
+            width: 16px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(0, 212, 255, 0.5), transparent);
+            transform: translateY(-50%);
+        }
+
+        .timeline-phase:last-child::before {
+            display: none;
+        }
+
+        .timeline-phase:hover {
+            transform: translateY(-4px);
+            border-color: #00d4ff;
+        }
+
+        .timeline-phase-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .timeline-phase-week {
+            font-size: 12px;
+            color: #00d4ff;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .timeline-phase-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 4px;
+        }
+
+        .timeline-phase-role {
+            font-size: 13px;
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .hero-features {
+                grid-template-columns: 1fr;
+            }
+            .timeline-visual {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .timeline-phase::before {
+                display: none;
+            }
         }
 
         /* Stats */
@@ -126,9 +305,9 @@
 
         /* Container */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 60px 24px;
+            padding: 60px 40px;
             position: relative;
             z-index: 1;
         }
@@ -137,19 +316,23 @@
         .section-title {
             font-size: clamp(28px, 4vw, 36px);
             font-weight: 700;
-            color: #1e293b;
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 16px;
             text-align: center;
         }
 
         .section-subtitle {
             font-size: 18px;
-            color: #64748b;
+            color: #cbd5e1;
             text-align: center;
             margin-bottom: 48px;
-            max-width: 700px;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.8;
         }
 
         /* Plecto Section */
@@ -167,12 +350,14 @@
             font-weight: 700;
             color: #1e293b;
             margin-bottom: 8px;
+            text-align: center;
         }
 
         .plecto-subtitle {
             color: #64748b;
             font-size: 16px;
             margin-bottom: 30px;
+            text-align: center;
         }
 
         .plecto-container {
@@ -224,9 +409,13 @@
         /* Phases */
         .phases {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 32px;
             margin-top: 40px;
+        }
+
+        .phase {
+            display: flex;
         }
 
         .phase-card {
@@ -238,6 +427,9 @@
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
         }
 
         .phase-card::before {
@@ -340,10 +532,14 @@
         /* Activities */
         .activities {
             margin-top: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
         .activity-section {
-            margin-bottom: 20px;
+            margin-bottom: 0;
         }
 
         .activity-section-title {
@@ -381,7 +577,8 @@
             border-radius: 8px;
             font-size: 13px;
             font-weight: 600;
-            margin-top: 20px;
+            margin-top: auto;
+            margin-bottom: 16px;
         }
 
         .phase:nth-child(1) .badge { color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); background: rgba(59, 130, 246, 0.05); }
@@ -401,8 +598,12 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 15px;
-            margin-top: 20px;
+            margin-top: 0;
             transition: all 0.3s ease;
+        }
+
+        .module-launch-btn:not(:last-child) {
+            margin-bottom: 10px;
         }
 
         .module-launch-btn:hover {
@@ -431,14 +632,35 @@
         @media (max-width: 768px) {
             header { padding: 60px 20px 40px; }
             .container { padding: 40px 20px; }
-            .phases { grid-template-columns: 1fr; }
+            .phases { 
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
             .plecto-section { padding: 25px; }
+            .journey-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .phases {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .container {
+                padding: 60px 32px;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .phases {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="shield-icon">🛡️</div>
         <h1>CyberDefender Academy</h1>
         <p class="subtitle">AI-Powered 90-Day GTM Onboarding Journey</p>
         
@@ -461,6 +683,90 @@
             </div>
         </div>
     </header>
+
+    <!-- Hero Features Section -->
+    <div class="hero-features">
+        <div class="hero-feature">
+            <div class="hero-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 16v-4"></path>
+                    <path d="M12 8h.01"></path>
+                </svg>
+            </div>
+            <div class="hero-feature-title">AI-Powered Learning</div>
+            <div class="hero-feature-desc">Personalized pathways with 24/7 AI coaching and real-time feedback</div>
+        </div>
+        <div class="hero-feature">
+            <div class="hero-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                </svg>
+            </div>
+            <div class="hero-feature-title">50% Faster Ramp</div>
+            <div class="hero-feature-desc">From 16 weeks to 8 weeks with structured, hands-on training</div>
+        </div>
+        <div class="hero-feature">
+            <div class="hero-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                    <path d="M4 22h16"></path>
+                    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+                </svg>
+            </div>
+            <div class="hero-feature-title">Gamified Journey</div>
+            <div class="hero-feature-desc">Earn badges, compete on leaderboards, unlock achievements</div>
+        </div>
+        <div class="hero-feature">
+            <div class="hero-feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="20" x2="12" y2="10"></line>
+                    <line x1="18" y1="20" x2="18" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="16"></line>
+                </svg>
+            </div>
+            <div class="hero-feature-title">Real-Time Tracking</div>
+            <div class="hero-feature-desc">Live performance metrics and manager visibility dashboard</div>
+        </div>
+    </div>
+
+    <!-- Journey Timeline Visual -->
+    <div class="journey-timeline">
+        <div class="timeline-header">
+            <h2 class="timeline-title">Your 90-Day Transformation</h2>
+            <p class="timeline-subtitle">Four progressive phases from foundation to mastery</p>
+        </div>
+        <div class="timeline-visual">
+            <div class="timeline-phase">
+                <div class="timeline-phase-number">1</div>
+                <div class="timeline-phase-week">Week 1-2</div>
+                <div class="timeline-phase-name">Foundation</div>
+                <div class="timeline-phase-role">Cadet Training</div>
+            </div>
+            <div class="timeline-phase">
+                <div class="timeline-phase-number">2</div>
+                <div class="timeline-phase-week">Week 3-4</div>
+                <div class="timeline-phase-name">Intelligence</div>
+                <div class="timeline-phase-role">Threat Hunter</div>
+            </div>
+            <div class="timeline-phase">
+                <div class="timeline-phase-number">3</div>
+                <div class="timeline-phase-week">Week 5-8</div>
+                <div class="timeline-phase-name">Demo Mastery</div>
+                <div class="timeline-phase-role">Vault Guardian</div>
+            </div>
+            <div class="timeline-phase">
+                <div class="timeline-phase-number">4</div>
+                <div class="timeline-phase-week">Week 9-12</div>
+                <div class="timeline-phase-name">Closing</div>
+                <div class="timeline-phase-role">Elite Defender</div>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <div class="plecto-section">
@@ -498,9 +804,14 @@
                             <h4 class="video-title">Zero Trust Microlearning Module</h4>
                         </div>
                         <div class="video-wrapper">
-                            <iframe src="https://www.youtube.com/embed/YEwT_ziIgnM" frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen></iframe>
+                            <iframe 
+                                src="https://www.youtube.com/embed/YEwT_ziIgnM?rel=0&modestbranding=1" 
+                                title="Zero Trust Microlearning Module"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen
+                                loading="lazy">
+                            </iframe>
                         </div>
                         <p class="video-description">3-minute interactive module explaining Zero Trust principles for GTM teams</p>
                     </div>
