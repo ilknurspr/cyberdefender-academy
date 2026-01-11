@@ -636,6 +636,153 @@
                 margin-top: 8px;
             }
         }
+
+        /* Plecto Leaderboard Section */
+        .plecto-section {
+            background: var(--cyber-card);
+            border: 2px solid var(--cyber-blue);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px auto 60px;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.3s backwards;
+        }
+
+        .plecto-section::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, var(--cyber-blue), var(--cyber-purple));
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        .plecto-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .plecto-icon {
+            font-size: 48px;
+            filter: drop-shadow(0 0 15px var(--cyber-blue));
+        }
+
+        .plecto-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--cyber-blue) 0%, var(--cyber-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .plecto-subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .plecto-container {
+            position: relative;
+            width: 100%;
+            background: #0a0e1f;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--cyber-border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .plecto-container:hover {
+            border-color: var(--cyber-blue);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .plecto-screenshot {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 16px;
+        }
+
+        .plecto-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(10, 14, 31, 0.95) 100%);
+            padding: 30px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .plecto-container:hover .plecto-overlay {
+            opacity: 1;
+        }
+
+        .overlay-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: var(--cyber-blue);
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .overlay-icon {
+            font-size: 24px;
+        }
+
+        .plecto-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .plecto-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .plecto-feature-item:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .feature-emoji {
+            font-size: 24px;
+        }
+
+        .plecto-feature-item span:last-child {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .plecto-section {
+                padding: 25px;
+            }
+
+            .plecto-features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
     </style>
 </head>
 <body>
@@ -664,6 +811,53 @@
                 </div>
             </div>
         </header>
+
+        <!-- Plecto Leaderboard Section -->
+        <div class="plecto-section">
+            <div class="plecto-header">
+                <div class="plecto-icon">🎮</div>
+                <div>
+                    <h2 class="plecto-title">Live Leaderboard & Performance</h2>
+                    <p class="plecto-subtitle">Real-time gamification tracking powered by Plecto</p>
+                </div>
+            </div>
+            
+            <div class="plecto-container">
+                <!-- PLECTO DASHBOARD SCREENSHOT -->
+                <img 
+                    src="plecto-dashboard.jpg" 
+                    alt="Cyber Defender Leaderboard - Live Performance Dashboard"
+                    class="plecto-screenshot"
+                    onclick="window.open('https://app.plecto.com', '_blank')">
+                
+                <!-- Overlay: Click to view live -->
+                <div class="plecto-overlay">
+                    <div class="overlay-content">
+                        <span class="overlay-icon">📊</span>
+                        <span class="overlay-text">Click to view live dashboard</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="plecto-features">
+                <div class="plecto-feature-item">
+                    <span class="feature-emoji">🏆</span>
+                    <span>Top Performers</span>
+                </div>
+                <div class="plecto-feature-item">
+                    <span class="feature-emoji">⚡</span>
+                    <span>Daily Missions</span>
+                </div>
+                <div class="plecto-feature-item">
+                    <span class="feature-emoji">🎯</span>
+                    <span>Team Rankings</span>
+                </div>
+                <div class="plecto-feature-item">
+                    <span class="feature-emoji">📈</span>
+                    <span>Real-time Metrics</span>
+                </div>
+            </div>
+        </div>
 
         <div class="timeline">
             <div class="timeline-line"></div>
