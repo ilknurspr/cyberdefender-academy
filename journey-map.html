@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>90-Day GTM Onboarding Journey | CyberDefender Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0A0E27 0%, #1a1f3a 100%);
+            color: #F9FAFB;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 3em;
+            background: linear-gradient(135deg, #00D9FF, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #9CA3AF;
+            font-weight: 400;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 3em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00D9FF, #8B5CF6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #00D9FF, #8B5CF6);
+            transform: translateX(-50%);
+        }
+
+        .phase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .phase-marker {
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00D9FF, #8B5CF6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2em;
+            border: 4px solid #0A0E27;
+            z-index: 10;
+        }
+
+        .phase-content {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px;
+        }
+
+        .phase:nth-child(even) .phase-content:first-child {
+            grid-column: 2;
+        }
+
+        .phase:nth-child(even) .phase-content:last-child {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        .phase-header {
+            margin-bottom: 20px;
+        }
+
+        .phase-weeks {
+            font-size: 0.85em;
+            color: #00D9FF;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .phase-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .phase-subtitle {
+            color: #9CA3AF;
+            font-style: italic;
+        }
+
+        .objectives {
+            margin: 20px 0;
+        }
+
+        .objectives h4 {
+            font-size: 1em;
+            color: #00D9FF;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .objective-item {
+            padding: 8px 0;
+            color: #D1D5DB;
+            border-left: 2px solid rgba(0, 217, 255, 0.3);
+            padding-left: 12px;
+            margin: 8px 0;
+        }
+
+        .track-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            border-radius: 6px;
+            font-size: 0.85em;
+            margin-top: 16px;
+            color: #C4B5FD;
+        }
+
+        .manager-track {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 60px;
+        }
+
+        .manager-track h2 {
+            font-size: 2em;
+            margin-bottom: 24px;
+            color: #8B5CF6;
+        }
+
+        .manager-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .manager-card {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .manager-card h4 {
+            color: #C4B5FD;
+            margin-bottom: 8px;
+        }
+
+        .manager-card p {
+            color: #9CA3AF;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 968px) {
+            .timeline::before {
+                left: 20px;
+            }
+
+            .phase {
+                grid-template-columns: 1fr;
+                padding-left: 60px;
+            }
+
+            .phase-marker {
+                left: 20px;
+            }
+
+            .phase:nth-child(even) .phase-content:first-child {
+                grid-column: 1;
+            }
+
+            .phase:nth-child(even) .phase-content:last-child {
+                grid-column: 1;
+                grid-row: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>90-Day GTM Onboarding Journey</h1>
+            <p class="subtitle">CyberDefender Academy | Structured Learning Path to Sales Mastery</p>
+        </div>
+
+        <div class="metrics">
+            <div class="metric-card">
+                <div class="metric-value">90</div>
+                <div class="metric-label">Days to Mastery</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">50%</div>
+                <div class="metric-label">Ramp Reduction</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">12</div>
+                <div class="metric-label">Certifications</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">97%</div>
+                <div class="metric-label">Completion Rate</div>
+            </div>
+        </div>
+
+        <div class="timeline">
+            <!-- Phase 1 -->
+            <div class="phase">
+                <div class="phase-marker">1</div>
+                <div class="phase-content">
+                    <div class="phase-header">
+                        <div class="phase-weeks">Week 1-2</div>
+                        <h3 class="phase-title">Security Foundation</h3>
+                        <p class="phase-subtitle">"Cadet Training"</p>
+                    </div>
+                    <div class="objectives">
+                        <h4>Learning Objectives</h4>
+                        <div class="objective-item">Master CyberArk product suite</div>
+                        <div class="objective-item">Understand Zero Trust fundamentals</div>
+                        <div class="objective-item">Learn value proposition</div>
+                    </div>
+                    <div class="track-badge">PAM Initiate Badge</div>
+                </div>
+                <div class="phase-content">
+                    <div class="objectives">
+                        <h4>Activities</h4>
+                        <div class="objective-item">Interactive modules (6 hours)</div>
+                        <div class="objective-item">AI Chatbot: 24/7 Q&A support</div>
+                        <div class="objective-item">Customer testimonial videos</div>
+                        <div class="objective-item">Gamified knowledge quiz</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="phase">
+                <div class="phase-marker">2</div>
+                <div class="phase-content">
+                    <div class="phase-header">
+                        <div class="phase-weeks">Week 3-4</div>
+                        <h3 class="phase-title">Competitive Intelligence</h3>
+                        <p class="phase-subtitle">"Threat Hunter"</p>
+                    </div>
+                    <div class="objectives">
+                        <h4>Learning Objectives</h4>
+                        <div class="objective-item">Master competitive positioning</div>
+                        <div class="objective-item">Handle top 10 objections</div>
+                        <div class="objective-item">Articulate unique value</div>
+                    </div>
+                    <div class="track-badge">Threat Hunter Badge</div>
+                </div>
+                <div class="phase-content">
+                    <div class="objectives">
+                        <h4>Activities</h4>
+                        <div class="objective-item">Battle card training modules</div>
+                        <div class="objective-item">AI competitive simulation</div>
+                        <div class="objective-item">Role-play with peers</div>
+                        <div class="objective-item">Create your battle card</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="phase">
+                <div class="phase-marker">3</div>
+                <div class="phase-content">
+                    <div class="phase-header">
+                        <div class="phase-weeks">Week 5-8</div>
+                        <h3 class="phase-title">Discovery & Demo Mastery</h3>
+                        <p class="phase-subtitle">"Vault Guardian"</p>
+                    </div>
+                    <div class="objectives">
+                        <h4>Learning Objectives</h4>
+                        <div class="objective-item">Master MEDDPICC framework</div>
+                        <div class="objective-item">Deliver compelling demos</div>
+                        <div class="objective-item">Build ROI calculator</div>
+                    </div>
+                    <div class="track-badge">Demo Master Badge</div>
+                </div>
+                <div class="phase-content">
+                    <div class="objectives">
+                        <h4>Activities</h4>
+                        <div class="objective-item">Shadow 5 live demo calls</div>
+                        <div class="objective-item">AI demo coach feedback</div>
+                        <div class="objective-item">Deliver 3 practice demos</div>
+                        <div class="objective-item">Score 4.5/5 on rubric</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4 -->
+            <div class="phase">
+                <div class="phase-marker">4</div>
+                <div class="phase-content">
+                    <div class="phase-header">
+                        <div class="phase-weeks">Week 9-12</div>
+                        <h3 class="phase-title">Advanced Closing</h3>
+                        <p class="phase-subtitle">"Elite Defender"</p>
+                    </div>
+                    <div class="objectives">
+                        <h4>Learning Objectives</h4>
+                        <div class="objective-item">Navigate enterprise cycles</div>
+                        <div class="objective-item">Close first $100K+ deal</div>
+                        <div class="objective-item">Present to C-level execs</div>
+                    </div>
+                    <div class="track-badge">Elite Defender Badge</div>
+                </div>
+                <div class="phase-content">
+                    <div class="objectives">
+                        <h4>Activities</h4>
+                        <div class="objective-item">Lead 2 opportunities end-to-end</div>
+                        <div class="objective-item">AI negotiation coach</div>
+                        <div class="objective-item">Final certification exam</div>
+                        <div class="objective-item">Graduate & earn recognition</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="manager-track">
+            <h2>Manager Enablement Track</h2>
+            <p style="color: #9CA3AF; margin-bottom: 24px;">Front-line managers receive specialized training to coach, develop, and accelerate their teams throughout the 90-day journey.</p>
+            
+            <div class="manager-grid">
+                <div class="manager-card">
+                    <h4>Coaching Fundamentals</h4>
+                    <p>Learn GROW model, feedback frameworks, and 1-on-1 structures</p>
+                </div>
+                <div class="manager-card">
+                    <h4>Performance Analytics</h4>
+                    <p>Use Plecto dashboard to track progress and coach effectively</p>
+                </div>
+                <div class="manager-card">
+                    <h4>AI Coaching Assistant</h4>
+                    <p>AI call analysis and personalized coaching recommendations</p>
+                </div>
+                <div class="manager-card">
+                    <h4>Recognition Strategy</h4>
+                    <p>Gamification setup, badge awards, and team celebrations</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+            <p style="color: #666; font-size: 0.9em;">CyberDefender Academy | AI-Powered GTM Sales Enablement</p>
+            <p style="color: #666; font-size: 0.9em; margin-top: 8px;">Designed by Ilknur Aspir | Learning Architect & Sales Enablement Designer</p>
+        </div>
+    </div>
+</body>
+</html>
